@@ -6,21 +6,21 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 15:40:54 by mli               #+#    #+#             */
-/*   Updated: 2019/08/29 18:48:08 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/01 23:45:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_print(int *tab)
+#include <stdlib.h>
+
+void	ft_print(int *tab, int n)
 {
-	int i;
 	int to_print;
 
-	i = 0;
-	while (tab[i])
+	while (--n >= 0)
 	{
-		to_print = tab[i++] + 48;
+		to_print = tab[n] + 48;
 		write(1, &to_print, 1);
 	}
 }
@@ -28,36 +28,24 @@ void	ft_print(int *tab)
 void	ft_print_combn(int n)
 {
 	int i;
-	int k;
 	int tab[n];
 
 	i = 0;
-	while (tab[i])
-		tab[i++] = 0;
-	i -= 1;
+	tab[i] = n - 1;
+//	while (tab[n - 1] <= (10 - n))
+//	{
+		i = -1;
+		while (++i <= n - 2)
+			tab[i + 1] = (tab[i] - 1);
+		ft_print(tab, n);
+//	}
 
-	k = 0;
-	while (tab[k] <= (10 - n + k))
-	{
-		tab[i] = tab[i - 1] + 1;
-		while (tab[i] < 9)
-		{
-			ft_print(tab);
-			tab[i]++;
-		}
-		if (tab[i] == 9)
-		{
-			ft_print(tab);
-			tab[i - 1]++;
-			tab[i] = tab[i - 1] + 1;
-		}
-	}
-
+	write(1, "\nEnd\n", 5);
 }
 
 int		main(int argc, char **argv)
 {
 	if (argc == 2)
-		ft_print_combn(argv[1][0]);
+		ft_print_combn(atoi(argv[1]));
 	return (0);
 }
