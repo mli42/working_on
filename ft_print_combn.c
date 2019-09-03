@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 15:40:54 by mli               #+#    #+#             */
-/*   Updated: 2019/09/02 20:05:59 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/02 23:43:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,44 +44,32 @@ int		ft_check(int *tab, int n)
 
 void	ft_print_combn(int n)
 {
-	int i;
 	int k;
 	int tab[n];
 
-	i = 0;
-	k = 0;
 	ft_initialize(tab, n);
-	while (tab[n - 1] <= (10 - n))
+	while (tab[n - 1] < (10 - n))
 	{
-		while (tab[i] <= (9 - i) && (i < n - 1))
-		{
 			if (ft_check(tab, n))
 			{
 				ft_print(tab, n);
-				if (tab[n - 1] < (10 - n))
-					write(1, ", ", 2);
+				write(1, ", ", 2);
 			}
-			if (tab[i] == (9 - i) && (i < n - 1))
-			{
-				tab[i + 1]++;
-				tab[i] = tab[i + 1] + 1;
-			}
-			// Then
 			k = 0;
-			while ((tab[i + k] == (9 - i)) && (i + k < n - 1))
+			while ((tab[k] == (9 - k)) && (k < n))
 				k++;
-			// On a k tq => tab[i + k] != max
-			while (k >= 0)
+			// k tel que : tab[k] != max
+			if ((k > 0) && (k < n))
 			{
-				tab[i + k]++;
+				tab[k]++;
+				while (--k >= 0)
+					tab[k] = tab[k + 1] + 1;
 			}
-			if (tab[i] != (9 - i) && (i < n - 1))
-				tab[i]++;
-		}
-		break;
+			// On a aug devant et réinitialisé derrière
+			else if (tab[0] < 9)
+				tab[0]++;
 	}
-
-	write(1, "\nEnd\n", 5);
+	ft_print(tab, n);
 }
 
 int		main(int argc, char **argv)
