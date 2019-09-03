@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start_ten_queen.c                                  :+:      :+:    :+:   */
+/*   ft_ten_queens_puzzle.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 03:03:40 by mli               #+#    #+#             */
-/*   Updated: 2019/08/27 23:12:19 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/03 19:42:49 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_check(int tab[10], int i)
 	// Check Ligne, No need Colonne
 	while (j < 10)
 	{
-		if (where != j)
+		if (i != j)
 			if (tab[i] == tab[j])
 				return (0);
 		j++;
@@ -60,39 +60,39 @@ int		ft_check(int tab[10], int i)
 	while (k < 10)
 	{
 		if (i - k >= 0)
-			if ((tab[i - k] == i - k) || (tab[i - k] == i + k))
+			if ((tab[i - k] == tab[i] - k) || (tab[i - k] == tab[i] + k))
 				return (0);
 		if (i + k < 10)
-			if ((tab[i + k] == i - k) || (tab[i + k] == i + k))
+			if ((tab[i + k] == tab[i] - k) || (tab[i + k] == tab[i] + k))
 				return (0);
 		k++;
 	}
 	return (1);
 }
-/*
-int		ft_backtracking(int tab[10], int i, int j, int filling)
+
+int		ft_backtracking(int tab[10], int i, int filling)
 {
 
-
-
 	return (0);
-}*/
+}
 
 int		ft_ten_queens_puzzle(void)
 {
+	int		n;
 	int		tab[10];
 
+	n = 0;
 	ft_initialize(tab);
 
 //	ft_test_fill(tab);
 
-//	ft_backtracking(tab, 0, 0, 1);
+//	ft_backtracking(tab, 0, 1);
 
-//	print_tab_tenxten(tab);
-//	write(1, "\n", 1);
-
+	print_tab_tenxten(tab);
+	write(1, "\n", 1);
 	ft_print_result(tab);
-	return (0);
+	n++;
+	return (n);
 }
 
 int		main(void)

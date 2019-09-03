@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 void	ft_test_fill(int tab[10])
 {
 	tab[0] = 6;
