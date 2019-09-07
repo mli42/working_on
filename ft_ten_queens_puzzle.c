@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 03:03:40 by mli               #+#    #+#             */
-/*   Updated: 2019/09/03 19:42:49 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/07 18:37:16 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,45 @@ int		ft_check(int tab[10], int i)
 	return (1);
 }
 
-int		ft_backtracking(int tab[10], int i, int filling)
+int		ft_backtracking(int tab[10], int i, int filling, int x)
 {
-
-	return (0);
+//	write(1, "P\n", 2);
+	tab[i] = filling;
+//	ft_print_result(tab);
+	if (ft_check(tab, i) && (tab[i] <= 9))
+	{
+		ft_print_result(tab);
+		x++;
+		if (tab[i] < 9)
+			return (ft_backtracking(tab, i, ++filling, x));
+		else if ((tab[i] == 9) && (i < 9))
+			return (ft_backtracking(tab, ++i, 0, x));
+	}
+	else if ((!(ft_check(tab, i))) && (tab[i] <= 9))
+	{
+		if (tab[i] < 9)
+			return (ft_backtracking(tab, i, ++filling, x));
+		else if ((tab[i] == 9) && (i > 0))
+		{
+			tab[i--] = 0;
+			if (tab[i] < 9)
+				return (ft_backtracking(tab, i, ++tab[i], x));
+			return (ft_backtracking(tab, i, tab[i], x));
+		}
+	}
+	return (x);
 }
 
 int		ft_ten_queens_puzzle(void)
 {
-	int		n;
+	int		result;
 	int		tab[10];
 
-	n = 0;
 	ft_initialize(tab);
 
-//	ft_test_fill(tab);
-
-//	ft_backtracking(tab, 0, 1);
-
-	print_tab_tenxten(tab);
-	write(1, "\n", 1);
-	ft_print_result(tab);
-	n++;
-	return (n);
+	ft_test_fill(tab);
+	result = ft_backtracking(tab, 9, 6, 0);
+	return (result);
 }
 
 int		main(void)

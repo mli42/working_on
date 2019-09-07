@@ -2,16 +2,16 @@
 
 void	ft_test_fill(int tab[10])
 {
-	tab[0] = 6;
-	tab[1] = 3;
+	tab[0] = 0;
+	tab[1] = 2;
 	tab[2] = 5;
-	tab[3] = 1;
-	tab[4] = 8;
+	tab[3] = 7;
+	tab[4] = 9;
 	tab[5] = 4;
-	tab[6] = 9;
-	tab[7] = 0;
-	tab[8] = 2;
-	tab[9] = 7;
+	tab[6] = 8;
+	tab[7] = 1;
+	tab[8] = 3;
+	tab[9] = 6;
 }
 
 void    print_tab_tenxten(int tab[10])
