@@ -6,15 +6,12 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 03:03:40 by mli               #+#    #+#             */
-/*   Updated: 2019/09/07 18:37:16 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/08 21:07:56 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
-
-void	ft_test_fill(int tab[10]);
-void    print_tab_tenxten(int tab[10]);
 
 void	ft_initialize(int tab[10])
 {
@@ -49,7 +46,7 @@ int		ft_check(int tab[10], int i)
 	j = 0;
 	k = 1;
 	// Check Ligne, No need Colonne
-	while (j < 10)
+	while (j < i)
 	{
 		if (i != j)
 			if (tab[i] == tab[j])
@@ -62,9 +59,9 @@ int		ft_check(int tab[10], int i)
 		if (i - k >= 0)
 			if ((tab[i - k] == tab[i] - k) || (tab[i - k] == tab[i] + k))
 				return (0);
-		if (i + k < 10)
-			if ((tab[i + k] == tab[i] - k) || (tab[i + k] == tab[i] + k))
-				return (0);
+//		if (i + k < 10)
+//			if ((tab[i + k] == tab[i] - k) || (tab[i + k] == tab[i] + k))
+//				return (0);
 		k++;
 	}
 	return (1);
@@ -72,19 +69,28 @@ int		ft_check(int tab[10], int i)
 
 int		ft_backtracking(int tab[10], int i, int filling, int x)
 {
-//	write(1, "P\n", 2);
 	tab[i] = filling;
 //	ft_print_result(tab);
-	if (ft_check(tab, i) && (tab[i] <= 9))
+	if (ft_check(tab, i) && (tab[i] <= 9) && (i >= 0) && (i < 10))
 	{
-		ft_print_result(tab);
-		x++;
-		if (tab[i] < 9)
-			return (ft_backtracking(tab, i, ++filling, x));
-		else if ((tab[i] == 9) && (i < 9))
+		if ((tab[i] <= 9) && (i == 9))
+		{
+			ft_print_result(tab);
+			x++;
+			tab[i--] = 0;
+			if (tab[i] < 9)
+				return (ft_backtracking(tab, i, ++tab[i], x));
+			else if ((tab[i] == 9) && (i > 0))
+			{
+				tab[i--] = 0;
+				if (tab[i] < 9)
+					return (ft_backtracking(tab, i, ++tab[i], x));
+			}
+		}
+		if ((tab[i] <= 9) && (i < 9))
 			return (ft_backtracking(tab, ++i, 0, x));
 	}
-	else if ((!(ft_check(tab, i))) && (tab[i] <= 9))
+	else if ((!(ft_check(tab, i))) && (tab[i] <= 9) && (i >= 0) && (i < 10))
 	{
 		if (tab[i] < 9)
 			return (ft_backtracking(tab, i, ++filling, x));
@@ -93,7 +99,12 @@ int		ft_backtracking(int tab[10], int i, int filling, int x)
 			tab[i--] = 0;
 			if (tab[i] < 9)
 				return (ft_backtracking(tab, i, ++tab[i], x));
-			return (ft_backtracking(tab, i, tab[i], x));
+			else if ((tab[i] == 9) && (i > 0))
+			{
+				tab[i--] = 0;
+				if (tab[i] < 9)
+					return (ft_backtracking(tab, i, ++tab[i], x));
+			}
 		}
 	}
 	return (x);
@@ -105,9 +116,7 @@ int		ft_ten_queens_puzzle(void)
 	int		tab[10];
 
 	ft_initialize(tab);
-
-	ft_test_fill(tab);
-	result = ft_backtracking(tab, 9, 6, 0);
+	result = ft_backtracking(tab, 0, 0, 0);
 	return (result);
 }
 
