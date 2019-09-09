@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 03:03:40 by mli               #+#    #+#             */
-/*   Updated: 2019/09/09 16:25:59 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/09 23:57:44 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,27 @@ int		ft_check(int tab[10], int i)
 int		ft_backtracking(int tab[10], int i, int filling, int x)
 {
 	tab[i] = filling;
-//	ft_print_result(tab);
-	if (ft_check(tab, i) && (tab[i] <= 9) && (i >= 0) && (i < 10))
+	while ((!(ft_check(tab, i))) && (tab[i] <= 9))
 	{
-		if (i == 9)
-		{
-	//		ft_print_result(tab);
-			tab[i--] = 0;
-			if (tab[i] == 9)
-				tab[i--] = 0;
-			return (ft_backtracking(tab, i, ++tab[i], ++x));
-		}
-		if (i < 9)
-			return (ft_backtracking(tab, ++i, 0, x));
-	}
-	else if ((!(ft_check(tab, i))) && (tab[i] <= 9) && (i >= 0) && (i < 10))
-	{
+		if ((tab[0] == 9) && (tab[1] == 9))
+			break;
 		while ((tab[i] == 9) && (i > 0))
 			tab[i--] = 0;
 		if (tab[i] < 9)
-			return (ft_backtracking(tab, i, ++tab[i], x));
+			(tab[i])++;
+	}
+	if (ft_check(tab, i) && (tab[i] <= 9))
+	{
+		if (i == 9)
+		{
+			ft_print_result(tab);
+			tab[i--] = 0;
+			if (tab[i] == 9)
+				tab[i--] = 0;
+			return (ft_backtracking(tab, i, ++(tab[i]), ++x));
+		}
+		if (i < 9)
+			return (ft_backtracking(tab, ++i, 0, x));
 	}
 	return (x);
 }
