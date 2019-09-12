@@ -6,75 +6,83 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:19:39 by mli               #+#    #+#             */
-/*   Updated: 2019/09/12 01:59:33 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/12 23:42:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int		base_check(char *base)
+int        base_check(char *base)
 {
-	int i;
-	int j;
+    int i;
+    int j;
 
-	// Base vide ou de taille 1
-	if (base[0] == '\0' || base[1] == '\0')
-		return (0);
-	// Comporte uniquement chiffres et lettres
-	i = 0;
-	while (base[i])
-	{
-		if (!(base[i] >= '0' && base[i] <= '9') &&
-				!(base[i] >= 'a' && base[i] <= 'z') &&
-				!(base[i] >= 'A' && base[i] <= 'Z'))
-			return (0);
-		i++;
-	}
-	// Deux char identiques
-	i = 0;
-	while (base[i + 1])
-	{
-		j = i + 1;
-		while (base[j])
-			if (base[i] == base[j++])
-				return (0);
-		i++;
-	}
-	return (i + 1);
+    // Base vide ou de taille 1
+    if (base[0] == '\0' || base[1] == '\0')
+        return (0);
+    // Comporte uniquement chiffres et lettres
+    i = 0;
+    while (base[i])
+    {
+        if (!(base[i] >= '0' && base[i] <= '9') &&
+                !(base[i] >= 'a' && base[i] <= 'z') &&
+                !(base[i] >= 'A' && base[i] <= 'Z'))
+            return (0);
+        i++;
+    }
+    // Deux char identiques
+    i = 0;
+    while (base[i + 1])
+    {
+        j = i + 1;
+        while (base[j])
+            if (base[i] == base[j++])
+                return (0);
+        i++;
+    }
+    return (i + 1);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void    ft_convert(unsigned int nbr, char *base, unsigned int base_len)
 {
-	int i;
-	int base_len;
-	int to_print;
-
-	i = 0;
-	to_print = nbr;
-	base_len = base_check(base);
-	//
-	if (base_len)
-		write(1, "Is a base\n", 10);
-	else
-		write(1, "Not a base\n", 11);
-	//
-	while (div >= base_len)
-	{
-		div /= base_len;
-		i++;
-	}
-
-	while (a >= 0)
-		write(1, &base[a--], 1);
-	write(1, '\n', 1);
-
-	printf("Length of the base: %d\n", base_len);
+    if (nbr >= base_len)
+    {
+        ft_convert((nbr / base_len), base, base_len);
+        ft_convert((nbr % base_len), base, base_len);
+    }
+    else
+        write(1, &base[nbr], 1);
 }
 
-int		main(void)
+void    ft_putnbr_base(int nbr, char *base)
 {
-	ft_putnbr_base(2, "0123456789ABCDEF");
-	return (0);
+    unsigned int base_len;
+    unsigned int nb;
+
+    nb = nbr;
+    base_len = base_check(base);
+    if (base_len)
+    {
+        if (nbr < 0)
+        {
+            write(1, "-", 1);
+            nb = nbr * (-1);
+        }
+        ft_convert(nb, base, base_len);
+        write(1, "\n", 1);
+    }
+}
+
+int        main(int argc, char **argv)
+{
+    if (argc == 2)
+    {
+        ft_putnbr_base(atoi(argv[1]), "01");
+        ft_putnbr_base(atoi(argv[1]), "0123456789ABCDEF");
+        ft_putnbr_base(atoi(argv[1]), "poneyvif");
+    }
+    return (0);
 }
