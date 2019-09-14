@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 23:33:36 by mli               #+#    #+#             */
-/*   Updated: 2019/09/13 21:29:22 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/14 20:14:02 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		base_check(char *base)
 	return (i + 1);
 }
 
-int		result_size(int nb, int base_len)
+int		result_size(long int nb, long int base_len)
 {
 	int i;
 
@@ -76,12 +76,10 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	base_len_to = base_check(base_to);
 	if (!(base_len_from) || !(base_len_to))
 		return (NULL);
-
 	nb = (long int)ft_atoi_base(nbr, base_from, base_len_from);
 	size = result_size(nb, base_len_to);
 	if (!(result = (char *)malloc(sizeof(char) * size)))
 		return (NULL);
-	printf("Result size: %d\n", result_size(nb, base_len_to) - 1);
 	ft_putnbr(nb, base_to, base_len_to, result);
 	result[size - 1] = '\0';
 	free(result);

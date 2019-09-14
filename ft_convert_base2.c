@@ -6,14 +6,9 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 23:33:41 by mli               #+#    #+#             */
-/*   Updated: 2019/09/13 21:51:43 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/14 20:11:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
-
-#include <unistd.h>
-#include <stdio.h>
 
 int		in_base(char to_test, char *base)
 {
@@ -68,13 +63,23 @@ int		ft_atoi_base(char *str, char *base, int base_len)
 
 void    ft_convert(long int nbr, char *base, long int base_len, char *r, int i)
 {
-    if (nbr >= base_len)
-    {
-        ft_convert((nbr / base_len), base, base_len, r, i++);
-        ft_convert((nbr % base_len), base, base_len, r, i);
-    }
-    else
-		r[i] = base[nbr];
+	int begin;
+	int swap;
+
+	begin = i;
+	while (nbr >= base_len)
+	{
+		r[i++] = base[nbr % base_len];
+		nbr /= base_len;
+	}
+	r[i] = base[nbr % base_len];
+	while (begin < i)
+	{
+		swap = r[begin];
+		r[begin] = r[i];
+		r[i--] = swap;
+		begin++;
+	}
 }
 
 void    ft_putnbr(int nbr, char *base, long int base_len, char *result)
@@ -85,7 +90,7 @@ void    ft_putnbr(int nbr, char *base, long int base_len, char *result)
 	if (nbr < 0)
 	{
 		result[0] = '-';
-		nb = nbr * (-1);
+		nb *= (-1);
 		ft_convert(nb, base, base_len, result, 1);
 	}
 	else
