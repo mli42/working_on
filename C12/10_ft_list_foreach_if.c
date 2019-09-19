@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_ft_list_reverse.c                               :+:      :+:    :+:   */
+/*   10_ft_list_foreach_if.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 14:58:28 by mli               #+#    #+#             */
-/*   Updated: 2019/09/19 22:33:10 by mli              ###   ########.fr       */
+/*   Created: 2019/09/19 22:40:27 by mli               #+#    #+#             */
+/*   Updated: 2019/09/19 22:49:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-void	ft_list_reverse(t_list **begin_list)
+void	ft_list_foreach_if(t_list *begin_list, void (*f)(void *),
+		void *data_ref, int (*cmp)())
 {
-	t_list	*before;
-	t_list	*current;
-	t_list	*after;
-
-	current = *begin_list;
-	before = NULL;
-	after = current->next;
-	while (after != NULL)
+	while (*begin_list)
 	{
-		current->next = before;
-		before = current;
-		current = after;
-		after = current->next;
+		if (!((*cmp)(begin_list->data, data_ref)))
+			(*f)(begin_list->data);
+		begin_list = begin_list->next;
 	}
-	current->next = before;
-	*begin_list = current;
 }
