@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 22:59:47 by mli               #+#    #+#             */
-/*   Updated: 2019/09/19 23:36:23 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/21 23:54:10 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,27 @@
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
 		void (*free_fct)(void *))
 {
-	t_list *before;
-	t_list *current;
-	t_list *after;
+	t_list	*current;
+	t_list	*to_delete;
 
-	before = NULL;
+	while (!((*cmp)((*begin_list)->data, data_ref)) && *begin_list)
+	{
+		to_delete = *begin_list;
+		*begin_list = to_delete->next;
+		(*free_fct)(to_delete->data);
+		free(to_delete);
+	}
 	current = *begin_list;
-	after = current->next;
 	while (current != NULL)
 	{
-		if (!((*cmp)(current->data, data_ref)) && before && after)
+		if (!((*cmp)(current->next->data, data_ref)) && current->next)
 		{
-			(*free_fct)(current->data);
-			before->next = after;
-			free(current);
-			current = after;
-			after = current->next;
+			to_delete = current->next;
+			current->next = current->next->next;
+			(*free_fct)(to_delete->data);
+			free(to_delete);
 		}
-		else if (!((*cmp)(current->data, data_ref)) && !before && after)
-		{
-			(*free_fct)(current->data);
-			free(current);
-			before->next = after;
-		}
-		else if (!((*cmp)(current->data, data_ref)) && before && !after)
-		{
-		
-		}
-		else
-		{
-			before = current;
-			current = after;
-			after = current->next;
-		}
-		if (*begin_list = current)
+		while ((*cmp)(current->data, data_ref) && current)
+			current = current->next;
 	}
 }
