@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 23:10:40 by mli               #+#    #+#             */
-/*   Updated: 2019/09/22 13:16:30 by mli              ###   ########.fr       */
+/*   Updated: 2019/09/22 15:56:19 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_list_reverse(t_list **begin_list);
 
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
 		void (*free_fct)(void *));
+void	ft_list_merge(t_list **begin_list1, t_list *begin_list2);
 
 int		compare(char *s1, char *s2)
 {
@@ -47,6 +48,7 @@ void	ft_print_list(t_list *begin_list)
 int		main(void)
 {
 	t_list	*list;
+	t_list	*list2;
 	char *strs[] = {"1", "2", "3", "4", "R"};
 //	00 create elem + 05 push strs
 	list = ft_list_push_strs(5, strs);
@@ -61,7 +63,18 @@ int		main(void)
 	ft_list_remove_if(&list, "R", cmp, free_fct);
 	printf("\nList Content:\n");
 	ft_print_list(list);
-
+//	13 List Merge
+	char *strs2[] = {"5", "6", "7", "8", "9"};
+	list2 = ft_list_push_strs(5, strs2);
+	ft_list_reverse(&list2);
+	printf("\nMerging these lists:\n");
+	ft_print_list(list);
+	ft_print_list(list2);
+	//list = NULL;
+	ft_list_merge(&list, list2);
+	printf("Gives: ");
+	ft_print_list(list);
+	printf("\n");
 
 	return (0);
 }
