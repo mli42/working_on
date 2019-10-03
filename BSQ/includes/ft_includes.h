@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:09:41 by mli               #+#    #+#             */
-/*   Updated: 2019/10/02 22:26:59 by mli              ###   ########.fr       */
+/*   Updated: 2019/10/03 12:16:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ft_print_map(char **map, int size, int len);
 char	**ft_create_map_and_fill(int fd, int size, int len, char content);
 int		ft_is_map_ok(int fd, int fd1);
 
-void	ft_bsq(char **map, int size, int len, char fills[4]);
+void	ft_bsq(char **map, char fills[4]);
 
 #endif

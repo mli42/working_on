@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 18:55:25 by mli               #+#    #+#             */
-/*   Updated: 2019/10/02 23:25:02 by mli              ###   ########.fr       */
+/*   Updated: 2019/10/03 12:35:56 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		ft_is_map_ok(int fd, int fd1)
 	read(fd1, &content, 1);
 	if ((map = ft_create_map_and_fill(fd1, size + 1, len + 1, content)))
 	{
-//		ft_bsq(map, size, len, fills);
+		ft_bsq(map, fills);
 		ft_print_map(map, size, len);
 	}
 	return (1);

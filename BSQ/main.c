@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:12:34 by mli               #+#    #+#             */
-/*   Updated: 2019/10/02 19:00:29 by mli              ###   ########.fr       */
+/*   Updated: 2019/10/03 11:43:44 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 	{
 		no_file = ft_only_one_arg();
-		fd = open("no_map", O_CREAT | O_WRONLY | O_TRUNC);
+		fd = open(no_file[1], O_CREAT | O_WRONLY | O_TRUNC);
 		if (!no_file || fd < 0)
 			return (0);
 		while (read(0, &content, 1))
