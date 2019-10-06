@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 22:27:56 by mli               #+#    #+#             */
-/*   Updated: 2019/10/03 20:12:12 by mli              ###   ########.fr       */
+/*   Updated: 2019/10/06 19:15:27 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,11 @@ void	ft_ijmax(int ijmax[3], int pos[2], int max)
 	ijmax[2] = max;
 }
 
-void	ft_initialize(int *max, int pos[2], int ijmax[3])
-{
-	pos[0] = 0;
-	pos[1] = 0;
-	*max = 0;
-	ft_ijmax(ijmax, pos, *max);
-}
-
 void	ft_search_next_position(char **map, char fills[4], int *i, int *j)
 {
-	while (map[*i][*j] != fills[0])
+	while (map[*i] && map[*i][*j] != fills[0])
 	{
-		while (map[*i][*j] != fills[0] && map[*i][*j])
+		while (map[*i][*j] == fills[1])
 			(*j)++;
 		if (map[*i][*j] == '\0')
 		{
@@ -81,12 +73,14 @@ void	ft_fill_map_resolved(char **map, char fills[4], int ijmax[3])
 
 void	ft_bsq(char **map, char fills[4])
 {
-	int		max;
-	int		error;
-	int		pos[2];
-	int		ijmax[3];
+	int	max;
+	int	error;
+	int	pos[2];
+	int	ijmax[3];
 
-	ft_initialize(&max, pos, ijmax);
+	pos[0] = 0;
+	pos[1] = 0;
+	ijmax[2] = -1;
 	while (map[pos[0]] != NULL)
 	{
 		if (map[pos[0]][pos[1]] != fills[0])
@@ -99,11 +93,7 @@ void	ft_bsq(char **map, char fills[4])
 		if (error < 0)
 			pos[1] -= error;
 		pos[1]++;
-		if (map[pos[0]][pos[1]] == '\0')
-		{
-			pos[0]++;
-			pos[1] = 0;
-		}
 	}
-	ft_fill_map_resolved(map, fills, ijmax);
+	if (ijmax[2] >= 0)
+		ft_fill_map_resolved(map, fills, ijmax);
 }
