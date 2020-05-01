@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/01 19:31:11 by mli               #+#    #+#              #
-#    Updated: 2020/05/01 20:56:10 by mli              ###   ########.fr        #
+#    Updated: 2020/05/01 23:42:29 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ ifeq ($(cc), db)
 endif
 
 SRCS = btree_create_node.c \
-	   btree_apply_infix.c btree_apply_prefix.c btree_apply_suffix.c
+	   btree_apply_infix.c btree_apply_prefix.c btree_apply_suffix.c \
+	   btree_insert_data.c
 
 OBJS_PATH = ./obj/
 OBJS = ${addprefix ${OBJS_PATH}, ${SRCS:.c=.o}}
