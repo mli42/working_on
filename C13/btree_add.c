@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 23:42:20 by mli               #+#    #+#             */
-/*   Updated: 2020/05/02 12:58:22 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/02 13:27:30 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void btree_add(t_btree **root, t_btree *new, int (*cmpf)(void *, void *))
 		parent = node;
 		if ((side = cmpf(node->item, new->item)) < 0)
 			node = node->right;
-		else if ((side = cmpf(node->item, new->item)) >= 0)
+		else
 			node = node->left;
 	}
 	if (side >= 0)
