@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 16:34:36 by mli               #+#    #+#             */
-/*   Updated: 2020/05/02 14:24:28 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/02 14:55:37 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void			btree_add(t_btree **root, t_btree *new,
 					int (*cmpf)(void *, void *));
 void			*btree_find(t_btree *root, void *data_ref,
 					int (*cmpf)(void *, void *));
+
+int				btree_depth(t_btree *root);
 
 #endif

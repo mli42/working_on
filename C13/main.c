@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:28:01 by mli               #+#    #+#             */
-/*   Updated: 2020/05/02 14:51:26 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/02 15:21:10 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_btree	*create_a_tree(void)
 {
-	t_btree *head;
+	t_btree *head = NULL;
 
 	head = btree_new("5");
 
@@ -85,6 +85,8 @@ int		main(void)
 
 	ft_find(node, "3");
 	ft_find(node, NULL);
+
+	printf("Btree size [%d]\n", btree_depth(node));
 
 	return (0);
 }
