@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/01 19:31:11 by mli               #+#    #+#              #
-#    Updated: 2020/05/02 14:56:29 by mli              ###   ########.fr        #
+#    Updated: 2020/05/02 23:40:05 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ ifeq ($(cc), db)
  CFLAGS +=  -fsanitize=address -g3
 endif
 
-SRCS = btree_new.c \
+SRCS = btree_new.c btree_add.c btree_find.c btree_depth.c \
 	   btree_apply_infix.c btree_apply_prefix.c btree_apply_suffix.c \
-	   btree_add.c btree_find.c btree_depth.c
+	   btree_apply_bfs.c
 
 OBJS_PATH = ./obj/
 OBJS = ${addprefix ${OBJS_PATH}, ${SRCS:.c=.o}}
