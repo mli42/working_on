@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:28:01 by mli               #+#    #+#             */
-/*   Updated: 2020/05/02 12:58:40 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/02 14:51:26 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int		ft_diff(void *a, void *b)
 	char *x = (char *)a;
 	char *y = (char *)b;
 
+	printf("\tCompare [%s] | [%s]\n", x, y);
+	if (!x || !y)
+		return (1);
+	else if (x == y)
+		return (0);
 	return (x[0] - y[0]);
 }
 
@@ -57,6 +62,13 @@ void	ft_print_mode(char *str, t_btree *node, void (*f)(t_btree *, void (*)()))
 	printf("\n");
 }
 
+void	ft_find(t_btree *root, void *data_ref)
+{
+	printf("Search [%s]\n", (char *)data_ref);
+	char *res = (char *)btree_find(root, data_ref, ft_diff);
+	printf("Found : [%s] | Search [%s]\n", res, (char *)data_ref);
+}
+
 int		main(void)
 {
 	t_btree *node = create_a_tree();
@@ -70,6 +82,9 @@ int		main(void)
 	ft_print_mode("infix", node, btree_apply_infix);
 	ft_insert(&node, "5");
 	ft_print_mode("infix", node, btree_apply_infix);
+
+	ft_find(node, "3");
+	ft_find(node, NULL);
 
 	return (0);
 }
