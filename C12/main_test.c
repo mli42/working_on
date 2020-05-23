@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 23:10:40 by mli               #+#    #+#             */
-/*   Updated: 2019/09/22 15:56:19 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/22 23:46:06 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ void	ft_print_list(t_list *begin_list)
 	printf("\n");
 }
 
+void	ft_test(t_list **lst)
+{
+	printf("I'M TESTING\n");
+	*lst = (*lst)->next->next->next;
+	ft_print_list(*lst);
+}
+
+void	ft_test2(t_list *lst)
+{
+	ft_test(&lst);
+	printf("\nTEST 2:\n");
+	ft_print_list(lst);
+}
+
 int		main(void)
 {
 	t_list	*list;
@@ -76,5 +90,17 @@ int		main(void)
 	ft_print_list(list);
 	printf("\n");
 
+	t_list **alst = &list;
+	t_list *test = list->next->next->next->next;
+	test = list;
+//	list = list->next;
+	ft_test2(test);
+
+	printf("\nTEST:\n");
+	ft_print_list(test);
+	printf("\nLIST:\n");
+	ft_print_list(list);
+	printf("\nORIGINAL:\n");
+	ft_print_list(*alst);
 	return (0);
 }

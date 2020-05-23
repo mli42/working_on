@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 21:13:48 by mli               #+#    #+#             */
-/*   Updated: 2019/09/17 21:32:17 by mli              ###   ########.fr       */
+/*   Updated: 2020/05/22 23:25:44 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_list_push_back(t_list **begin_list, void *data)
 		*begin_list = new_last;
 	else
 	{
-		while (*begin_list->next != NULL)
-			*begin_list = *begin_list->next;
-		*begin_list->next = new_last;
+		while ((*begin_list)->next != NULL)
+			*begin_list = (*begin_list)->next;
+		(*begin_list)->next = new_last;
 	}
 }
